@@ -45,6 +45,7 @@ public class GetRestaurantList extends HttpServlet {
 		
 			while (result.next()) {
 				restaurant_name=result.getString("restaurant_name");
+				user_id=result.getString("user_id");
 				fullList += ("<tr><td><a href=GetReview?restaurant_name=" + restaurant_name+">"+restaurant_name+"</a>"
 						+ "</td><td>" + result.getString("rating")
 						+ "</td><td>" + result.getString("num_of_review")

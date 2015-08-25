@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-  <h2>Assignment Grade</h2>
+  <h2>Add a new review</h2>
   <form class="form-horizontal" role="form" method="post" action="AddReview">
     
     <input type="hidden" name="user_id" value="${user_id}">

@@ -16,14 +16,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class AddReview
  */
-@WebServlet("/AddReview")
-public class AddReview extends HttpServlet {
+@WebServlet("/AddUser")
+public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddReview() {
+    public AddUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,16 +48,15 @@ public class AddReview extends HttpServlet {
 //		
 //		}
 		
+		PreparedStatement preStatement;
 		try {
 			Connection conn = DBConnection.getConnection();
-			String rating, comments, restaurant_name, user_id;
-			rating = request.getParameter("rating");
-			comments = request.getParameter("comments");
-			restaurant_name = request.getParameter("restaurant_name");
-			user_id = request.getParameter("user_id");
+			String name, email, zipcode;
+			name = request.getParameter("name");
+			email = request.getParameter("email");
+			zipcode = request.getParameter("zipcode");
 			
-			String sql = "insert into review values(null, "+user_id+","+restaurant_name+","+ rating+", "+comments+", CURDATE())";
-			PreparedStatement preStatement;
+			String sql = "insert into review values(null, "+name+","+email+","+ zipcode+")";
 			preStatement = conn.prepareStatement(sql);
 			ResultSet result = preStatement.executeQuery();
 		} catch (SQLException e) {
@@ -65,14 +64,14 @@ public class AddReview extends HttpServlet {
 			e.printStackTrace();
 		}
 		// Set response content type
-				response.setContentType("text/html");
+		response.setContentType("text/html");
 
-				String content="Successful!";
-				request.setAttribute("content", content);
+		String content="Successful!";
+		request.setAttribute("content", content);
 
-				getServletContext().getRequestDispatcher("/successful.jsp")
-						.forward(request, response);
-	
+		getServletContext().getRequestDispatcher("/successful.jsp")
+				.forward(request, response);
+		
 	}
 
 }
