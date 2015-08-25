@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-  <title>Home</title>
-  <meta charset="utf-8">
+ <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>My Review</title>
 </head>
 <body>
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -21,29 +23,22 @@
         <li><a href="SignUp.html">Sign up</a></li>
         <li><a href="SignIn.html">Sign In</a></li>
           <li><a href="GetMyReview">My Profile</a></li>
-        
+         <li><a href="signout.jsp">Sign Out</a></li>
       </ul>
     </div>
   </div>
 </nav>
- <div class="container">
-  <h3>Welcome to Professor Strongheim's Gradebook</h3>
-</div> 
+<table>
+<thead>
+<th>Restaurant</th>
+<th>Rating</th>
+<th>Comments</th>
+<th>Date</th>
+</thead>
+<tbody>
+${fullList}
+</tbody>
 
-
-
-
-  
-  
-
-
-
-
-
-	
-
-
-
+</table>
 </body>
 </html>
-

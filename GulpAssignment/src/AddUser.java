@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/AddUser")
 public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private String name, email, zipcode, password;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,12 +34,8 @@ public class AddUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession(true);
+		//HttpSession session = request.getSession(true);
 //		String user_id = (String)session.getAttribute("user_id");
 //		if(user_id==null)
 //		{
@@ -51,26 +47,44 @@ public class AddUser extends HttpServlet {
 		PreparedStatement preStatement;
 		try {
 			Connection conn = DBConnection.getConnection();
-			String name, email, zipcode;
+			
 			name = request.getParameter("name");
 			email = request.getParameter("email");
 			zipcode = request.getParameter("zipcode");
+			password = request.getParameter("password");
+			if(DBConnection.hasAccount(name, email, conn)){
+				String content="Account already exists!";
+				response.setContentType("text/html");
+				request.setAttribute("content", content);
+				getServletContext().getRequestDispatcher("/error.jsp")
+				.include(request, response);
+				content="";
+			}else{
+				String sql = "insert into users values(null, '"+ name +"' ,'"+email+"' ,"+ zipcode+",'"+password+"')";
+				System.out.println(sql);
+				preStatement = conn.prepareStatement(sql);
+				preStatement.executeQuery();
+				String sql1 = "select id from users where user_name = '"+name+"'";
+				System.out.println(sql1);
+				preStatement = conn.prepareStatement(sql1);
+				ResultSet rst = preStatement.executeQuery();
+				rst.next();
+				request.getSession().setAttribute("user_id",rst.getString("id"));
+				// Set response content type
+				response.setContentType("text/html");
+
+				String content="Successful!";
+				request.setAttribute("content", content);
+
+				getServletContext().getRequestDispatcher("/successful.jsp")
+						.forward(request, response);
+			}
 			
-			String sql = "insert into review values(null, "+name+","+email+","+ zipcode+")";
-			preStatement = conn.prepareStatement(sql);
-			ResultSet result = preStatement.executeQuery();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Set response content type
-		response.setContentType("text/html");
-
-		String content="Successful!";
-		request.setAttribute("content", content);
-
-		getServletContext().getRequestDispatcher("/successful.jsp")
-				.forward(request, response);
 		
 	}
 

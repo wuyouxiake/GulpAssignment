@@ -12,31 +12,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">Gulp</a>
-    </div>
-    <div>
-      <ul class="nav navbar-nav">
-         <li><a href="GetRestaurantList">Restaurant List</a></li>
-        <li><a href="SignUp.html">Sign up</a></li>
-        <li><a href="SignIn.html">Sign In</a></li>
-          <li><a href="GetMyReview">My Profile</a></li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-<table>
-<thead>
-<th>Name</th>
-<th>Rating</th>
-</thead>
-<tbody>
-${content}
-</tbody>
-
-</table>
+<%request.getSession().setAttribute("user_id", ""); %>
+<jsp:forward page ="index.html"/>
 </body>
 </html>

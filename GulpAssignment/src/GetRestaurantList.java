@@ -37,19 +37,23 @@ public class GetRestaurantList extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			String user_id = (String)session.getAttribute("user_id");
 	
+			if(user_id==null){
+				response.setContentType("text/html");
+				getServletContext().getRequestDispatcher("/error.jsp")
+				.include(request, response);
+			}
 			conn = DBConnection.getConnection();
 			String sql = "select restaurant_name, rating, num_of_review from restaurant order by rating desc";
 			PreparedStatement preStatement = conn.prepareStatement(sql);
 			ResultSet result = preStatement.executeQuery();
-			String restaurant_name;
 		
 			while (result.next()) {
-				restaurant_name=result.getString("restaurant_name");
-				user_id=result.getString("user_id");
+				String restaurant_name=result.getString("restaurant_name");
+				user_id=(String) request.getSession().getAttribute("user_id");
 				fullList += ("<tr><td><a href=GetReview?restaurant_name=" + restaurant_name+">"+restaurant_name+"</a>"
 						+ "</td><td>" + result.getString("rating")
 						+ "</td><td>" + result.getString("num_of_review")
-						+ "<td><a href=new_review.jsp?restaurant_name=" + restaurant_name+"&user_id="+user_id+">Add Review</a></td>" + "</tr>");
+						+ "<td><a href=new_review.jsp?restaurant_name=" + restaurant_name+">Add Review</a></td>" + "</tr>");
 				// System.out.println(fullList);
 			}
 		} catch (Exception e) {
