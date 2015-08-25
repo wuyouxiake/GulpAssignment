@@ -43,18 +43,23 @@ public class GetRestaurantList extends HttpServlet {
 				.include(request, response);
 			}
 			conn = DBConnection.getConnection();
-			String sql = "select restaurant_name, rating, num_of_review from restaurant order by rating desc";
+			String sql = "select * from restaurant order by rating desc";
 			PreparedStatement preStatement = conn.prepareStatement(sql);
 			ResultSet result = preStatement.executeQuery();
-		
+			
 			while (result.next()) {
 				String restaurant_name=result.getString("restaurant_name");
+				String description=result.getString("description");
+				String address=result.getString("address");
 				user_id=(String) request.getSession().getAttribute("user_id");
 				fullList += ("<tr><td><a href=GetReview?restaurant_name=" + restaurant_name+">"+restaurant_name+"</a>"
 						+ "</td><td>" + result.getString("rating")
 						+ "</td><td>" + result.getString("num_of_review")
-						+ "<td><a href=new_review.jsp?restaurant_name=" + restaurant_name+">Add Review</a></td>" + "</tr>");
-				// System.out.println(fullList);
+						+ "</td></tr>"
+						+ "<tr><td colspan=2><b>Description</b></td><td><b>Address</b></td></tr>"
+						+ "<tr><td colspan=2 >" + result.getString("description")+"</td>"
+						+ "<td >" + result.getString("address")+"</td></tr>"
+						+ "<tr><td colspan=3><a href=new_review.jsp?restaurant_name=" + restaurant_name+">Add Review</a></td>" + "</tr><tr><td colspan= 3></td></tr>");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

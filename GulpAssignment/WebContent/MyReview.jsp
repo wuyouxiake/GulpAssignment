@@ -28,7 +28,7 @@
     </div>
   </div>
 </nav>
-<table>
+<table class="table table-bordered">
 <thead>
 <th>Restaurant</th>
 <th>Rating</th>
