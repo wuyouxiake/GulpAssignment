@@ -43,7 +43,7 @@ public class GetMyReview extends HttpServlet {
 				getServletContext().getRequestDispatcher("/error.jsp")
 				.forward(request, response);
 			}else{
-				conn = DBConnection.getConnection();
+				conn = DBConnection.getConnection();			
 				String sql = "select * from review where user_id = "+user_id+" order by rating";
 				PreparedStatement preStatement = conn.prepareStatement(sql);
 				ResultSet result = preStatement.executeQuery();
