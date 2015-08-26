@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,8 +50,21 @@ public class GetReview extends HttpServlet {
 				address = result.getString("address");
 				num_of_review = result.getString("num_of_review");
 			}
-			String content = "<tr><td>"+restaurant_name+"</td><td>"+rating+"</td></tr><tr><td colspan=2>"+
-			description+"</tr><tr><td>"+address+"</td><td>"+num_of_review+"</td></tr>";
+			String content = "<tr><td>"+restaurant_name+"</td><td>"+rating+"</td></tr><tr><td><b>Decription<td><tr></tr><tr><td colspan=2>"+
+			description+"</tr><tr><td><b>Address</td><td><b># Reviews</td></tr><tr><td >"+address+".  "+"</td><td>"+".  "+num_of_review+"</td></tr>";
+			
+			content += "<tr><td colspan=2><b>REVIEWS</td></tr>";
+			String sql2 = "select * from review where restaurant_name = '"+restaurant_name+"'";
+			ps = conn.prepareStatement(sql2);
+			ResultSet result2 = ps.executeQuery();
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			while(result2.next()){
+			String rating2 = result2.getString("rating");
+			String date_String = df.format(result2.getDate("review_date"));
+			String comments = result2.getString("comments");
+			
+			content += "<tr><td><b>Ratings</td><td><b>Comments"+"  ."+"</td><td><b>Date</td></tr><tr><td>"+rating2+"  "+"</td><td>"+comments+"  "+"</td><td>"+date_String+"</td></tr>";
+			}
 			// Set response content type
 			response.setContentType("text/html");
 
