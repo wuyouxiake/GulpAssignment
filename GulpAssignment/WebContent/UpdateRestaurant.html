@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Restaurant List</title>
+<meta charset="ISO-8859-1">
+<title>Update Restaurant</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -30,16 +28,34 @@
     </div>
   </div>
 </nav>
-<table class="table table-bordered">
-<thead>
-<th>Name</th>
-<th>Rating</th>
-<th>Number of Reviews</th>
-</thead>
-<tbody>
-${fullList}
-</tbody>
+<div align="center">
+<form class="form-horizontal" role="form" method="post" action="UpdateRestaurant">
+<input type="hidden" name="action" value="update_name">
+<label for="r_name">Restaurant Name: </label><br>
+<input type="text" name="r_name" required>
+<br><br>
 
-</table>
+<label for="new_name">New Name: </label><br>
+<input type="text" name="new_name" required>
+<br><br>
+<input type="submit" name="submit" Value="submit">
+</form>
+</div>
+
+<div align="center">
+<form class="form-horizontal" role="form" method="post" action="UpdateRestaurant">
+<input type="hidden" name="action" value="update_address">    
+<label for="r_name">Restaurant Name: </label><br>
+<input type="text" name="r_name" required>
+<br><br>
+
+<label for="new_address">New Address: </label><br>
+<input type="text" name="new_address" required>
+<br><br>
+<input type="submit" name="submit" Value="submit">
+</form>
+</div>
+
+
 </body>
 </html>

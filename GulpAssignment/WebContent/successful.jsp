@@ -23,8 +23,9 @@
         <li><a href="SignUp.html">Sign up</a></li>
         <li><a href="SignIn.html">Sign In</a></li>
           <li><a href="GetMyReview">My Profile</a></li>
-         <li><a href="signout.jsp">Sign Out</a></li>
-         <li><a href="UpdateRestaurant.html">Update Restaurant</a></li>
+           <li><a href="UpdateRestaurant.html">Update Restaurant</a></li>
+        
+        <li><a href="EditProfile">Edit Profile</a></li>
       </ul>
     </div>
   </div>

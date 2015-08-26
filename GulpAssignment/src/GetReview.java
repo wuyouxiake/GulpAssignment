@@ -42,6 +42,7 @@ public class GetReview extends HttpServlet {
 		String rating = null, description = null, address = null, num_of_review = null;
 		PreparedStatement ps;
 		try {
+			String content="";
 			ps = conn.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			while(result.next()){
@@ -50,7 +51,7 @@ public class GetReview extends HttpServlet {
 				address = result.getString("address");
 				num_of_review = result.getString("num_of_review");
 			}
-			String content = "<tr><td>"+restaurant_name+"</td><td>"+rating+"</td></tr><tr><td><b>Decription<td><tr></tr><tr><td colspan=2>"+
+			content = "<tr><td>"+restaurant_name+"</td><td>"+rating+"</td></tr><tr><td><b>Decription<td><tr></tr><tr><td colspan=2>"+
 			description+"</tr><tr><td><b>Address</td><td><b># Reviews</td></tr><tr><td >"+address+".  "+"</td><td>"+".  "+num_of_review+"</td></tr>";
 			
 			content += "<tr><td colspan=2><b>REVIEWS</td></tr>";
@@ -62,8 +63,22 @@ public class GetReview extends HttpServlet {
 			String rating2 = result2.getString("rating");
 			String date_String = df.format(result2.getDate("review_date"));
 			String comments = result2.getString("comments");
+			String review_id=result2.getString("id");
 			
-			content += "<tr><td><b>Ratings</td><td><b>Comments"+"  ."+"</td><td><b>Date</td></tr><tr><td>"+rating2+"  "+"</td><td>"+comments+"  "+"</td><td>"+date_String+"</td></tr>";
+			content += "<tr><td><b>Ratings</td><td><b>Comments"+"	"+
+					"</td><td><b>Date</td></tr><tr><td>"+rating2+"  "+
+					"</td><td>"+comments+"  "+"</td><td>"+
+					date_String+"</td></tr>";
+			String sql3 = "select * from comments where review_id="+review_id;
+			PreparedStatement ps1 = conn.prepareStatement(sql3);
+			ResultSet result3 = ps1.executeQuery();
+			content+="<tr><td><b>Comments</td></tr>";
+			while(result3.next()){
+				String comments1 = result3.getString("comments");
+				content+="<tr><td>"+comments1+"</td></tr>";
+			}
+			content+="<tr><td><a href=\"AddComment.jsp?review_id="+review_id+"\">Add comment</a></td></tr>";
+			
 			}
 			// Set response content type
 			response.setContentType("text/html");

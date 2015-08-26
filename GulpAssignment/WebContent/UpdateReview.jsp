@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Restaurant List</title>
+<title>Update Review</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -30,16 +30,43 @@
     </div>
   </div>
 </nav>
-<table class="table table-bordered">
-<thead>
-<th>Name</th>
-<th>Rating</th>
-<th>Number of Reviews</th>
-</thead>
-<tbody>
-${fullList}
-</tbody>
+<%! public String rest_name=""; %>
+<div class="container">
+  <h2>Update Review</h2>
+      <% rest_name = request.getParameter("restaurant_name");%>
+  <form class="form-horizontal" role="form" method="get" action="UpdateReview">
+    <input type="hidden" name="user_id" value="${user_id}">
+     <input type="hidden" name="restaurant_name" value=<%=rest_name%>>
+ 
+     <div class="form-group">
+      <label class="control-label col-sm-2">New Rating: </label>
+      <div class="col-sm-10">
+					<select id="type" name="rating" REQUIRED>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select> 
+      </div>
+    </div>
+    
+<label for="description">New Comments: </label><br>
+<textarea rows="4" cols="50" name="comments">
+</textarea>
+<br><br>
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Submit" id="submit">
+      </div>
+    </div>
+  </form>
+</div>
 
-</table>
+
+
+
 </body>
 </html>
