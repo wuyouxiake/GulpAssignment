@@ -33,7 +33,7 @@ public class GetRestaurantList extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-		
+			
 			HttpSession session = request.getSession(true);
 			String user_id = (String)session.getAttribute("user_id");
 	
@@ -49,10 +49,11 @@ public class GetRestaurantList extends HttpServlet {
 			
 			while (result.next()) {
 				String restaurant_name=result.getString("restaurant_name");
+				System.out.println(restaurant_name);
 				String description=result.getString("description");
 				String address=result.getString("address");
 				user_id=(String) request.getSession().getAttribute("user_id");
-				fullList += ("<tr><td><a href=GetReview?restaurant_name=" + restaurant_name+">"+restaurant_name+"</a>"
+				fullList += ("<tr><td><a href=GetReview?restaurant_name=" + restaurant_name.replaceAll(" ", "%20")+">"+restaurant_name+"</a>"
 						+ "</td><td>" + result.getString("rating")
 						+ "</td><td>" + result.getString("num_of_review")
 						+ "</td></tr>"
@@ -73,10 +74,16 @@ public class GetRestaurantList extends HttpServlet {
 		// message = "Hello";
 		// out.println("&lt;h1&gt;" + message + "&lt;/h1&gt;");
 		request.setAttribute("fullList", fullList);
-
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getServletContext().getRequestDispatcher("/RestaurantList.jsp")
 				.forward(request, response);
 		fullList = "";
+		
 	}
 
 	public void destroy() {
