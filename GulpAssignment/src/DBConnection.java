@@ -68,4 +68,19 @@ public class DBConnection {
 		}
 	}
 	
+	public static boolean hasRestaurant(String r_name, Connection conn)
+			throws SQLException {
+		// judge if the account Number exists in the database
+		String sql = "select * from restaurant where restaurant_name = '"
+				+ r_name +"'";
+
+		PreparedStatement preStatement = conn.prepareStatement(sql);
+		ResultSet result = preStatement.executeQuery();
+		if (result.next()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

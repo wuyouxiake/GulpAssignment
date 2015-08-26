@@ -51,11 +51,12 @@ public class GetMyReview extends HttpServlet {
 			
 				while (result.next()) {
 					restaurant_name=result.getString("restaurant_name");
-
+					user_id=(String) request.getSession().getAttribute("user_id");
 					fullList += ("<tr><td><a href=GetReview?restaurant_name=" + restaurant_name+">"+restaurant_name+"</a>"
 							+ "</td><td>" + result.getString("rating")
 							+ "</td><td>" + result.getString("comments")
 							+ "</td><td>" + result.getString("review_date")
+							+ "</td><td><a href=UpdateReview.jsp?restaurant_name=" + restaurant_name+">Update</a>"
 							+ "</td></tr>");
 					// System.out.println(fullList);
 				}
@@ -67,7 +68,6 @@ public class GetMyReview extends HttpServlet {
 				// message = "Hello";
 				// out.println("&lt;h1&gt;" + message + "&lt;/h1&gt;");
 				request.setAttribute("fullList", fullList);
-
 				getServletContext().getRequestDispatcher("/MyReview.jsp")
 						.forward(request, response);
 				fullList = "";

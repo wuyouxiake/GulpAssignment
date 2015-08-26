@@ -24,6 +24,8 @@
         <li><a href="SignIn.html">Sign In</a></li>
           <li><a href="GetMyReview">My Profile</a></li>
          <li><a href="signout.jsp">Sign Out</a></li>
+         <li><a href="UpdateRestaurant.html">Update Restaurant</a></li>
+         
       </ul>
     </div>
   </div>
@@ -34,6 +36,7 @@
 <th>Rating</th>
 <th>Comments</th>
 <th>Date</th>
+<th>Other</th>
 </thead>
 <tbody>
 ${fullList}

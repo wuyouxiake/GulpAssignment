@@ -24,6 +24,7 @@
         <li><a href="SignIn.html">Sign In</a></li>
           <li><a href="GetMyReview">My Profile</a></li>
          <li><a href="signout.jsp">Sign Out</a></li>
+         <li><a href="UpdateRestaurant.html">Update Restaurant</a></li>
       </ul>
     </div>
   </div>
@@ -32,7 +33,6 @@
 <div class="container">
   <h2>Add a new review</h2>
       <% rest_name = request.getParameter("restaurant_name");%>
-      <% out.println(rest_name); %>
   <form class="form-horizontal" role="form" method="get" action="AddReview">
     <input type="hidden" name="user_id" value="${user_id}">
      <input type="hidden" name="restaurant_name" value=<%=rest_name%>>
